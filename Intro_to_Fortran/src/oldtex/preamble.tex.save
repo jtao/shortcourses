@@ -1,0 +1,65 @@
+% \documentclass[aspectratio=169]{beamer}
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{beamerthemesplit}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{alltt}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+
+%\usetheme{Warsaw}
+\usetheme{Frankfurt}
+%\usecolortheme[RGB={132,186,75}]{structure}
+\usecolortheme{beaver}
+%\usecolortheme[rgb={132,186,75}]{structure}
+%\setbeamercolor{tableofcontents}{fg=red}
+\setbeamerfont{structure}{series=\bfseries} 
+\useoutertheme[subsection=false]{smoothbars} % Beamer Outer Theme
+\useinnertheme{rounded} % Beamer Inner Theme
+
+\graphicspath{{images/}}
+
+\logo{\includegraphics[height=1cm]{TAM-Logo.png}}
+
+\newcommand{\Hhybtwid}{\tilde{H}_\text{hyb}}
+\newcommand{\Tr}{\text{Tr}}
+% We want to use the infolines outer theme because it uses so less space, but
+% it also tries to print an institution (which we do not have) and the slide
+% numbers (which we might not want to show). Therefore, we here redefine the
+% footline ourselfes - mostly a copy & paste from
+% /usr/share/texmf/tex/latex/beamer/themes/outer/beamerouterthemeinfolines.sty
+\defbeamertemplate*{footline}{infolines theme without institution and slide numbers}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% For some reason this is not displayed by default. This is just a copy & paste
+% from the same file as the footline
+\defbeamertemplate*{headline}{infolines theme with sections/subsections}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]{subsection in head/foot}%
+    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% some settings for captions
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamerfont{caption}{size=\scriptsize}

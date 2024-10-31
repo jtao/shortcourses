@@ -1,0 +1,156 @@
+\begin{frame}[fragile]{Program - I}
+\begin{block}{Typical Fortran program structure}
+\begin{lstlisting}
+PROGRAM program-name
+  IMPLICIT NONE
+  [specification part]
+  [execution part]
+  [subprogram part]
+END PROGRAM program-name
+\end{lstlisting}
+\end{block}
+The \textbf{PROGRAM} statement (optional) gives a name to the program. 
+The first character of the name must be a letter. Use the \textbf{IMPLICIT NONE} statement to
+avoid implicit typing rules. The \textbf{END} statement terminates the program and returns control to the 
+computer's operating system.
+\end{frame}
+
+\begin{frame}[fragile]{Program - II}
+A Fortran program consists of one or more program units:
+\textbf{PROGRAM, SUBROUTINE, FUNCTION, MODULE}
+\begin{itemize}
+ \item The unit containing the \textbf{PROGRAM} attribute is often called the main
+program or main.
+ \item The main program should begin with the \textbf{PROGRAM} keyword (not required, but recommended).
+ \item A Fortran program should contain only one main program and one or more subprogram
+units such as \textbf{SUBROUTINE}, \textbf{FUNCTION} and \textbf{MODULE}.
+ \item Every program unit, must end with a \textbf{END} keyword.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{An Example}
+\begin{block}{Temperature Conversion between Fahrenheit and Celsius}
+\begin{lstlisting}
+program temp
+  implicit none
+  real :: tempC, tempF
+! Convert 10C to fahrenheit
+  tempF = 9.0 / 5.0 * 10.0 + 32.0
+! Convert 40F to celsius
+  tempC = 5.0 / 9.0 * (40.0 - 32.0 )
+  call display(tempc, tempF)
+end program temp
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Subroutines - I}
+\begin{block}{Typical Fortran subroutine structure}
+\begin{lstlisting}
+SUBROUTINE subroutine-name(dummy arguments)
+  IMPLICIT NONE
+  [specification part]
+  [execution part]
+  [subprogram part]
+END SUBROUTINE subroutine-name
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Subroutines - I}
+\begin{block}{Typical Fortran subroutine structure}
+\begin{lstlisting}
+SUBROUTINE subroutine-name(dummy arguments)
+  IMPLICIT NONE
+  [specification part]
+  [execution part]
+  [subprogram part]
+END SUBROUTINE subroutine-name
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Subroutines - II}
+\begin{itemize}
+ \item CALL Statement:
+ \begin{itemize}
+  \item The  \textbf{CALL} statement evaluates its arguments and transfers control to the subroutine
+  \item Upon return, the next statement is executed.  
+ \end{itemize}
+ \item SUBROUTINE Statement:
+ \begin{itemize}
+  \item The \textbf{SUBROUTINE} statement declares the procedure and its arguments.
+  \item These are also known as dummy arguments.
+ \end{itemize}
+ \item The subroutine’s interface is defined by
+ \begin{itemize}
+  \item The subroutine statement itself
+  \item The declarations of its dummy arguments
+  \item Anything else that the subroutine uses
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{A Subroutine Example}
+\begin{block}{Calcuate the sum of input variables}
+\begin{lstlisting}
+SUBROUTINE calc(a,b,c, sum)
+  IMPLICIT NONE
+  real :: a,b,c,sum
+  sum = a + b + c
+  return
+END SUBROUTINE calc
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Functions}
+Fortran functions operate on the same principle as subroutines.
+The only difference is that function returns a value and does not
+involve the call statement.
+
+\begin{block}{Calculate the sum of the input variables}
+\begin{lstlisting}
+FUNCTION calc(a,b,c)
+  IMPLICIT NONE
+  real :: a,b,c,calc
+  calc = a + b + c
+END FUNCTION calc
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Recursive Functions}
+In Fortran 90, recursive procedures call themselves and must be declared explicitly.
+The recursive function declarations must contain a result keyword, and 
+one type of declaration refers to both the function name and the result variable.
+\begin{block}{Calcuate the factorial}
+\begin{lstlisting}
+RECURSIVE FUNCTION fact(i) result(i_fact)
+integer :: i, i_fact
+if ( i > 0 ) then
+  i_fact = i * fact(i - 1)
+else
+  i_fact = 1
+end if
+END FUNCTION fact
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Modules}
+A module is a program unit whose functionality can be exploited
+by other programs which attaches to it via the \textbf{USE} statement.
+\begin{block}{Example of module}
+\begin{lstlisting}
+MODULE PRECISION
+ IMPLICIT NONE
+ integer, parameter :: dp = 8
+END MODULE PRECISION
+\end{lstlisting}
+\end{block}
+\end{frame}

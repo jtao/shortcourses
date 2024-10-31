@@ -1,0 +1,47 @@
+\begin{frame}[fragile]{Hello World in Fortran}
+\begin{block}{Source code helloworld.f90}
+\begin{lstlisting}
+program hello
+  print *, 'Hello World!'
+end program hello
+\end{lstlisting}
+\end{block}
+
+\begin{block}{Compile and run}
+\begin{lstlisting}
+$gfortran -o helloworld helloworld.f90
+$./helloworld
+Hello World!
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\frame { \frametitle{What is Fortran?}
+\begin{itemize}
+ \item Fortran (formerly FORTRAN, derived from \textbf{FOR}mula \textbf{TRAN}slation) is a 
+general-purpose, imperative programming language that is especially suited to 
+numeric computation and scientific computing. 
+ \item Originally developed by IBM in the 1950s for scientific and engineering applications.
+ \item Widely used in computationally intensive areas such as numerical weather prediction, 
+ finite element analysis, etc.
+ \item It has been a popular language for high-performance computing and is used for programs 
+that benchmark and rank the world's fastest supercomputers.
+\end{itemize}
+}
+
+\frame { \frametitle{History of Fortran}
+\begin{itemize}
+\item FORTRAN — first released by IBM in 1957
+\item FORTRAN II — released by IBM in 1958
+\item FORTRAN IV — released in 1962, standardized
+\item FORTRAN 66 — appeared in 1966 as an ANSI standard
+\item FORTRAN 77 — appeared in 1977, structured features
+\item \textbf{Fortran 90} — 1992 ANSI standard, free form, modules
+\item \textbf{Fortran 95} — a few extensions
+\item Fortran 2003 — object oriented programming
+\item Fortran 2008 — a few extensions
+\end{itemize}
+The correct spelling of Fortran for 1992 ANSI standard and later
+(sometimes called Modern Fortran) is ``Fortran''. Older standards are
+spelled as ``FORTRAN''.
+}

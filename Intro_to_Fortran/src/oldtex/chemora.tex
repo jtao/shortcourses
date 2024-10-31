@@ -1,0 +1,377 @@
+\frame { \frametitle{Chemora for Heterogeneous Systems}
+To carry our success to next generation petascale/exascale heterogeneous systems, 
+based on the \textbf{Cactus Computational Framework}, we started the \textbf{Chemora} project. 
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[height=0.4\textwidth]{chemora.pdf}
+\end{figure}
+}
+
+\frame { \frametitle{Cactus Computational Framework}
+  \begin{wrapfigure}{R}{0.15\textwidth}
+    \begin{center}
+      \includegraphics[width=0.15\textwidth]{cactus_logo}
+    \end{center}
+  \end{wrapfigure}
+  $ $
+  \textbf{Cactus} is
+  \begin{itemize}
+   \item a computational framework for developing portable, modular applications solving partial differential equations.
+   \item focusing, although not exclusively, on high-performance simulation codes.
+   \item designed to allow domain experts in one field to develop
+         modules that are transparent to experts in other fields.
+   \item supporting adaptive mesh refinement via the Carpet library.
+   \item available at \url{http://cactuscode.org/}
+  \end{itemize}
+}
+
+\frame { \frametitle{Carpet Adaptive Mesh Refinement Library}
+  \begin{wrapfigure}{R}{0.15\textwidth}
+    \hspace{-20pt}
+    \begin{center}
+      \includegraphics[width=0.15\textwidth]{carpet_logo}
+    \end{center}
+    \vspace{-20pt}
+  \end{wrapfigure}
+  $ $
+
+\textbf{Carpet} is
+  \begin{itemize}
+    \item a driver layer of Cactus providing adaptive mesh refinement,
+          multi-patch capability, as well as parallelization and efficient I/O.
+    \item written primarily in C++.
+    \item led by Erik Schnetter at LSU and Perimeter Institute.
+    \item available at \url{http://carpetcode.org/}
+  \end{itemize}
+}
+
+
+\frame { \frametitle{Accelerator Framework}
+The naive ``copy to - compute - copy back" approach in GPU programming very often fails to give optimal performance. As a module (or thorn) in Cactus, we developed an accelerator framework.
+  \begin{itemize}
+    \item We track which data (and what part of the data) are
+read and written by a particular routine, and where this routine
+executes (host or GPU). 
+    \item Data are copied only when necessary, and then only those 
+portions that are needed. 
+    \item Data are not only accessed for computations; 
+inter-process synchronization and I/O also access data, and are typically executed on the host.
+  \end{itemize}
+}
+
+
+% 
+% \frame { \frametitle{Cactus Application View}
+% The structure of an \textbf{application} that is built upon the Cactus computational framework
+% \begin{figure}
+% \vspace{0.0cm}
+% \hspace{0.0cm}
+% \centering
+% \includegraphics[width=0.7\textwidth]{cactus_appview}
+% \end{figure}
+% }
+
+% \frame { \frametitle{Portability \& Scalability}
+% \footnotesize
+% \begin{block}{Portability}
+%   \begin{itemize}
+%     \item Cactus runs on \textbf{all variants} of the Unix operating system,
+%           Windows platform, Xbox, etc..
+%   \end{itemize} 
+% \end{block}
+% \begin{block}{Scalability}
+%   \begin{itemize}
+%     \item Cactus scales to \textbf{131,072} out of 163,840 cores on
+%           Intrepid (Blue Gene/P) at ANL with a uniform grid driver.
+%   \end{itemize}
+% \end{block}
+% \normalsize
+% \begin{figure}
+% \vspace{0.0cm}
+% \centering
+% \includegraphics[width=0.8\textwidth]{bgp_bssn_pugh}
+% \end{figure}
+% }
+
+
+\frame { \frametitle{CaKernel Programming Abstractions}
+\textbf{CaKernel is}
+\begin{itemize}
+  \item a kernel abstraction;
+  \item a parallel programming framework suitable for solving some types of PDEs;
+  \item a collection of Cactus modules/thorns;
+  \item able to automatically generate and execute CUDA, OpenCL, and C code;
+  \item the outcome of our collaborative research efforts with PSNC and other institutes.
+\end{itemize}
+\textbf{CaKernel is not}
+\begin{itemize}
+  \item designed to be a generic solution;
+  \item in its final form yet.
+\end{itemize}
+}
+
+
+\frame { \frametitle{Design of CaKernel}
+CaKernel contains $3$ major parts:
+\begin{itemize}
+\item \textbf{CaKernel Descriptor}: is used to declare the variables that will
+be needed in the computation, and identify a few relevant properties;
+\item \textbf{CaKernel Templates}: are sets of templates which are highly
+optimized for particular types of computational tasks and optimization
+strategies;
+\item \textbf{CaKernel Code Generator}: is used to parse the descriptors and
+automatically generate header files by referring to CaKernel templates. The
+descriptor parser and code generator are built on Piraha
+(http://code.google.com/p/piraha-peg/).
+\end{itemize}
+}
+
+
+\frame { \frametitle{Grid Abstractions behind Cactus \& CaKernel}
+\begin{itemize}
+\item \textbf{Grid Hierarchy (GH)} represents the distributed adaptive GH.
+In Cactus, grid operations are usually handled by a driver thorn to 
+create, operate and destroy hierarchical grid structures.
+\item \textbf{Grid Function (GF)} represents a distributed data structure that
+represents the variables in an application. The application developers are 
+responsible for providing proper routines to do initialization, boundary updates, etc.
+\item \textbf{Grid Geometry (GG)} represents the coordinates, bounding boxes,
+and bounding box lists of the computational domain. Operations on the GG, such
+as union, intersection, refine, and coarsen are usually implemented in a driver 
+thorn as well.
+\end{itemize}
+}
+
+
+\frame { \frametitle{CaKernel Code Generation}
+The \textbf{CaKernel code generator} parses the CaKernel descriptor and automatically generate
+CaKernel code from a set of highly optimized templates.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.7\textwidth]{CaKernelCodeGen}
+\end{figure}
+}
+
+\frame { \frametitle{3D Stencil Computation}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.7\textwidth]{algorithm.png}
+\end{figure}
+\begin{flushright}
+ \textsc{(credit to P. Micikevicius from NVIDIA)}
+\end{flushright}
+}
+
+\frame { \frametitle{Code Workflow}
+Cactus variables $\textbf{U}(n)$ are evolved to the next time step $\textbf{U}(n+1)$ during the execution stage.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.6\textwidth]{CaKernelWorkflow}
+\end{figure}
+}
+
+
+\frame { \frametitle{Kranc Code Generation Package}
+  \begin{wrapfigure}{R}{0.15\textwidth}
+    \hspace{-20pt}
+    \begin{center}
+      \includegraphics[width=0.15\textwidth]{kranc_logo}
+    \end{center}
+    \vspace{-20pt}
+  \end{wrapfigure}
+  $ $
+
+\textbf{Kranc} is
+\begin{itemize}
+  \item a suite of Mathematica packages with a computer algebra
+        toolbox for numerical relativists.
+  \item a prototyping system for physicists or mathematicians
+        handling very complicated systems of partial differential equations.
+  Kranc can generate entire Cactus based codes starting from a high
+  level set of partial differential equations.
+  \item available at \url{http://kranccode.org/}
+\end{itemize}
+}
+
+\frame { \frametitle{Integration with Cactus}
+Kranc is closely coupled with Cactus by
+\begin{itemize}
+\item Defining the grid functions which the simulation will use.
+\item Performing a user-specified calculation at each point of the grid.
+\item Computing the right hand sides of evolution equations so that the
+time integrator can compute the evolved variables at the next time step.
+\end{itemize}
+}
+
+\frame { \frametitle{Potential Applications}
+Various kinds of initial value boundary problems:
+\begin{block}{}
+\begin{equation}
+\begin{array}{lcl}
+  \partial_t u^a &=& f(u^a), \\
+  u^a |_{t=0} &=& g(u^a), \\
+  u^a |_{\partial \Sigma} &=& h(u^a) \nonumber
+\end{array}
+\end{equation}
+\end{block}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{boundary}
+    \end{center}
+    \vspace{-20pt}
+  \end{figure}
+}
+
+\frame{
+\frametitle{Kranc in Action: Wave Equation (I)}
+\begin{block}{Mathematical expression:}
+\begin{equation}
+\partial_t^2 u = \delta^{ab}\partial_b\partial_a u  \nonumber
+\end{equation}
+\end{block}
+\begin{block}{Rewritten in 1st order in time:}
+\begin{equation}
+\begin{array}{lcl}
+\partial_t u & = & \rho, \\
+\partial_t \rho & = & \delta^{ab}\partial_b\partial_a u \nonumber
+\end{array}
+\end{equation}
+\end{block}
+\begin{block}{Input to Kranc:}
+\begin{equation}
+\begin{array}{lcl}
+    dot[u] &\rightarrow & rho, \\
+    dot[rho] &\rightarrow & KD[ua,ub] PD[u[la],lb] \nonumber
+\end{array}
+\end{equation}
+\end{block}
+}
+
+\begin{frame}[fragile]
+\frametitle{Kranc in Action: Wave Equation (II)}
+\begin{block}{Generated C code to calculate the RHS:}
+\begin{verbatim}
+/* Precompute derivatives (new style) */
+    PDstandardNth11u = PDstandardNth11(u, i, j, k);
+    PDstandardNth22u = PDstandardNth22(u, i, j, k);
+    PDstandardNth33u = PDstandardNth33(u, i, j, k);
+/* Calculate temporaries and grid functions */
+    urhsL = rhoL;
+    rhorhsL = PDstandardNth11u + PDstandardNth22u
+            + PDstandardNth33u;
+/* Copy local copies back to grid functions */
+    rhorhs[index] = rhorhsL;
+    urhs[index] = urhsL;
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\frame { \frametitle{McLachlan Code}
+The McLachlan code is
+\begin{itemize}
+  \item a public code created in the XiRel project to solve the EFE in vacuum,
+        namely
+        \\$$G_{\mu\nu} \equiv R_{\mu\nu} - \frac{1}{2}g_{\mu\nu} R = 0.$$
+  \item used routinely for binary blackhole simulations.
+  \item automatically generated using Kranc.
+  \item coupled with LoopControl for hybrid MPI + OpenMP parallel programming.
+\end{itemize}
+}
+
+\frame { \frametitle{$\tilde R_{ij}$ in McLachlan (I)}
+In the BSSN (Baumgarte-Shapiro-Shibata-Nakamura) $3+1$ formalism used in
+McLachlan, we need to calculate the
+3D conformal part of Ricci tensor $\tilde R_{ij}$.
+\begin{block}{Mathematical expression:}
+\begin{eqnarray}
+\tilde R_{ij} & = & - \frac{1}{2} \tilde \gamma^{lm}
+        \tilde \gamma_{ij,lm}
+        + \tilde \gamma_{k(i} \partial_{j)} \tilde \Gamma^k
+        + \tilde \Gamma^k \tilde \Gamma_{(ij)k} \nonumber \\
+       &+& \tilde \gamma^{lm} \left( 2 \tilde \Gamma^k_{l(i}
+        \tilde \Gamma_{j)km} + \tilde \Gamma^k_{im} \tilde \Gamma_{klj}
+        \right) \nonumber
+\end{eqnarray}
+\end{block}
+}
+
+\frame { \frametitle{$\tilde R_{ij}$ in McLachlan (II)}
+\begin{block}{Input to Kranc:}
+\begin{equation}
+\begin{array}{lcl}
+    Rt[li,lj] &\rightarrow &  - (1/2) gtu[ul,um] PD[gt[li,lj],ll,lm] \\
+                & + & (1/2) gt[lk,li] PD[Xt[uk],lj] \\
+                & + & (1/2) gt[lk,lj] PD[Xt[uk],li] \\
+                & + & (1/2) Xtn[uk] gt[li,ln] Gt[un,lj,lk] \\
+                & + & (1/2) Xtn[uk] gt[lj,ln] Gt[un,li,lk] \\
+                & + & gtu[ul,um] (+ Gt[uk,ll,li] gt[lj,ln] Gt[un,lk,lm] \\
+                & + & Gt[uk,ll,lj] gt[li,ln] Gt[un,lk,lm] \\
+                & + & Gt[uk,li,lm] gt[lk,ln] Gt[un,ll,lj]) \nonumber
+\end{array}
+\end{equation}
+\end{block}
+}
+
+\frame { \frametitle{$\tilde R_{ij}$ in McLachlan (III)}
+Generated C code to calculate $\tilde R_{11}$ (5 more not shown)
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{Rt11}
+    \end{center}
+    \vspace{-20pt}
+  \end{figure}
+}
+
+\frame { \frametitle{McLachlan in Action}
+McLachlan is also
+\begin{itemize}
+  \item the numerical kernel of the new Cactus benchmark submitted to the SPEC CPU Benchmark Search Program.
+  \item adopted by the LSU team to compete in the Second IEEE International
+        Scalable Computing Challenge (SCALE 2009) at CCGrid 2009.
+\end{itemize}
+}
+
+\frame { \frametitle{Kranc - CaKernel GPU Code Optimization}
+The CaKernel parts of Chemora use Kranc-provided
+and run-time-available information to generate efficient GPU
+executables from the numerical kernel.
+\begin{itemize}
+\item Stencils and dynamic tile selection (loop tiling, heuristic approaches)
+\item Lightweight kernel generation (dynamic code generation, index arithmetic simplification)
+\item Fat kernel detection (loop fusion, code reconstruction, dynamic adjustment of the number of threads)
+\item Integrated performance monitoring (PAPI, NVIDIA Cupti, kernel identification)
+\end{itemize}
+}
+
+
+\frame { \frametitle{Equation Description Language}
+\begin{itemize}
+  \item Very high level, Latex-like syntax for domain scientists
+  \item Description: variables, equations, initial/boundary conditions, parameters, analysis quatities
+  \item A layer between real physics problems to numerical implementations
+\end{itemize}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+      \includegraphics[width=0.4\textwidth]{edl.png}
+\end{figure}
+}
+
+\frame { \frametitle{Binary Blackhole Simulation}
+Modeling gravitational waves from binary blackhole system.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.4\textwidth]{bbhsim.png}
+\end{figure}
+}

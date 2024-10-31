@@ -1,0 +1,35 @@
+\frame { \frametitle{Hardware Setup \& Performance}
+  \begin{itemize}
+    \item In single precision, the CaKernel-based CFD code obtains \textbf{$\sim$1 GFLOPS} on
+a CPU and \textbf{$\sim$100 GFLOPS} on a NVIDIA GeForce GTX480 GPU.
+    \item The scalability tests were performed on up to \textbf{16 nodes} (2 NVIDIA Tesla M2050 GPUs each) 
+connected with 40Gbps InfiniBand network.
+  \end{itemize}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.4\textwidth]{gtx480.jpg}
+\includegraphics[width=0.4\textwidth]{tesla1.jpg}
+\end{figure}
+}
+
+\frame { \frametitle{Weak Scaling}
+CaKernel can generate code in both OpenCL and CUDA.
+Two cases are shown for each type of generated code: with and without domain decomposition along the X direction.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.9\textwidth]{weakscaling}
+\end{figure}
+}
+
+\frame { \frametitle{Strong Scaling}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.9\textwidth]{strongscaling}
+\end{figure}
+}

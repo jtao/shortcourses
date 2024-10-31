@@ -1,0 +1,176 @@
+\begin{frame}[fragile]{Control Constructs}
+A Fortran program is executed sequentially. Control Constructs change the sequential execution order of the
+program.
+\begin{itemize}
+ \item Conditionals: \textbf{IF}, \textbf{IF-THEN-ELSE}
+ \item Switches: \textbf{SELECT/CASE} 
+ \item Loops: \textbf{DO}
+ \item Branches: \textbf{GOTO} (obsolete in Fortran 95/2003, use CASE instead)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conditionals}
+\begin{block}{IF construct}
+\begin{lstlisting}
+if ( expression ) statement
+\end{lstlisting}
+\end{block}
+\begin{block}{IF THEN ELSE construct}
+\begin{lstlisting}
+if ( expression 1 ) then
+  executable statements
+else if ( expression 2 ) then
+  executable statements
+else
+  executable statements
+end if
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Conditionals - IF Example}
+\begin{block}{IF construct}
+\begin{lstlisting}
+if (value < 0) value = 0
+\end{lstlisting}
+\end{block}
+\begin{itemize}
+ \item When the if statement is executed, the logical expression is evaluated.
+ \item If the result is true, the statement following the logical
+expression is executed; otherwise, it is not executed.
+ \item The statement following the logical expression cannot be
+another if statement. Use the if-then-else construct instead.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Conditionals - IF-THEN-ELSE Example}
+\begin{block}{IF THEN ELSE construct}
+\begin{lstlisting}
+if ( x < 50 ) then
+  GRADE = 'F'
+else if ( x >= 50 .and. x < 60 ) then
+  GRADE = 'D'
+else if ( x >= 60 .and. x < 70 ) then
+  GRADE = 'C'
+else if ( x >= 70 .and. x < 80 ) then
+  GRADE = 'B'
+else
+  GRADE = 'A'
+end if
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Switches}
+\begin{block}{SELECT CASE construct}
+\begin{lstlisting}
+[case_name:] select case ( expression )
+  case ( selector )
+    executable statement
+  case ( selector )
+    executable statement
+  case default
+    executable statement
+end select [case_name]
+\end{lstlisting}
+\end{block}
+The value of the expression in the select case should be an integer or a character string.
+The case name is optional.
+\end{frame}
+
+\begin{frame}[fragile]{Switches - Example I}
+\begin{block}{Character case selector}
+\begin{lstlisting}
+select case ( traffic_light )
+  case ( "red" )
+    print *, "Stop"
+  case ( "yellow" )
+    print *, "Caution"
+  case ( "green" )
+    print *, "Go"
+  case default
+    print *, "Illegal value: ", traffic_light
+end select
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Switches - Example II}
+\begin{block}{Integer case selector}
+\begin{lstlisting}
+select case ( score )
+  case ( 50 : 59 )
+    GRADE = "D"
+  case ( 60 : 69 )
+    GRADE = "C"
+  case ( 70 : 79 )
+    GRADE = "B"
+  case ( 80 : )
+    GRADE = "A"
+  case default
+    GRADE = "F"
+end select
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Loops - DO}
+\begin{block}{DO construct}
+\begin{lstlisting}
+[do name:] do loop_control
+  execution statements
+end do [do name]
+\end{lstlisting}
+\end{block}
+The do loop name is optional. To exit the do loop, use the \textbf{EXIT} 
+or \textbf{CYCLE} statement.
+\begin{itemize}
+ \item The \textbf{EXIT} statement causes termination of execution of a loop.
+ \item The \textbf{CYCLE} statement causes termination of the execution of one
+iteration of a loop.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Loops - DO Example}
+\begin{block}{Factorial with DO construct}
+\begin{lstlisting}
+program factorial1
+  implicit none
+  integer(KIND=8) :: i,factorial, n=6
+  factorial = n
+  do i = n-1,1,-1
+    factorial = factorial * i
+  end do
+  write(*,'(i4,a,i15)') n,'!=',factorial
+end program factorial1
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Loops - DO WHILE}
+If a condition is to be tested at the top of a loop, a do ... while
+loop can be used
+\begin{block}{DO WHILE construct}
+\begin{lstlisting}
+[do name:] do while ( expression )
+  executable statements
+end do [do name]
+\end{lstlisting}
+\end{block}
+The loop only executes if the logical expression is \textbf{.TRUE.}
+\end{frame}
+
+\begin{frame}[fragile]{Loops - DO WHILE Example}
+\begin{block}{DO WHILE example}
+\begin{lstlisting}
+finite: do while ( i <= 100 )
+  i = i + 1
+  inner: if ( i < 10 ) then
+    print *, i
+  end if inner
+end do finite
+\end{lstlisting}
+\end{block}
+\end{frame}

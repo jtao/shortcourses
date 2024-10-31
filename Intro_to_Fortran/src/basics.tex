@@ -1,0 +1,295 @@
+\frame { \frametitle{Hardware and Software}
+A computing system is built from hardware and software
+
+\begin{block}{The hardware}
+is the physical medium and contains CPU, memory, keyboard, display, disks, 
+ethernet interfaces etc.
+\end{block}
+
+\begin{block}{The software}
+is a set of computer programs and contains operating system, compilers, editors,
+Fortran programs, etc.
+\end{block}
+}
+
+\frame { \frametitle{Fortran Compiler}
+\begin{block}{Compiler - from Wikipedia}
+A compiler is a computer program (or a set of programs) that transforms source 
+code written in a programming language (the source language) into another computer 
+language (the target language), with the latter often having a binary form known 
+as object code. The most common reason for converting source code is to create an 
+executable program. 
+\end{block}
+
+The FORTRAN team led by John Backus at IBM introduced the first unambiguously 
+complete compiler in 1957. 
+
+\begin{block}{Some popular Fortran compilers}
+GNU Fortran(gfortran), Intel Fortran(ifort), 
+G95(g95), IBM(xlf90), Cray(ftn), Portland Group Fortran (pgf90)
+\end{block}
+}
+
+\frame { \frametitle{Fortran Source Code}
+\begin{itemize}
+ \item Fortran 90 and later versions support free format source code.
+ \item Fortran source code is in ASCII text and can be written in any text editor.
+ \item Fortran source code is case \textbf{insensitive}. PROGRAM is the
+same as Program and pRoGrAm.
+ \item Use whatever convention you are comfortable with and be consistent throughout.
+ \item Comments in Fortran 90 source code start with an exclamation mark (!) except in a character string.
+ Comments help to enhance the readability of your code.
+\end{itemize}
+}
+
+\frame { \frametitle{Variables}
+Variables are the fundamental building blocks of any program
+\begin{itemize}
+ \item A variable name may consist of up to 31 alphanumeric characters and 
+ underscores, of which the first character must be a letter.
+ \item There are no reserved words in Fortran.
+ \item Variable names must begin with a letter and should not contain a space.
+\end{itemize}
+}
+
+\frame { \frametitle{Variable Types}
+\begin{block}{Intrinsic data types}
+\begin{itemize}
+ \item INTEGER: exact whole numbers
+ \item REAL: real, franctional numbers
+ \item COMPLEX: complex, fractional numbers
+ \item LOGICAL: boolean values
+ \item CHARACTER: strings
+\end{itemize}
+\end{block}
+\begin{itemize}
+ \item Users can define additional types.
+ \item REAL is a single-precision floating-point number.
+ \item FORTRAN provides DOUBLE PRECISION data type for double precision REAL. 
+       This is obsolete but is still found in many programs.
+\end{itemize}
+}
+
+\begin{frame}[fragile]{Explicit and Implicit Typing}
+\begin{block}{Implicit typing of variables}
+$$\underbrace{ABCDEFGH}_{real}\overbrace{IJKLMN}^{integer}\underbrace{OPQRSTUVWXYZ}_{real}$$
+\end{block}
+\begin{lstlisting}
+IMPLICIT DOUBLE PRECISION (a-h,o-z)
+\end{lstlisting}
+\begin{itemize}
+ \item it is highly recommended to explicitly declare all variable and
+avoid implict typing using the statement.
+\begin{lstlisting}
+IMPLICIT NONE
+\end{lstlisting}
+ \item the IMPLICIT statement must precede all variable declarations.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Contants - I}
+\begin{block}{Integer}
+\begin{lstlisting}
+242, -2341, 290223
+\end{lstlisting}
+\end{block}
+\begin{block}{Real (single precision)}
+\begin{lstlisting}
+1.03, 3.51e23, -8.201
+\end{lstlisting}
+\end{block}
+\begin{block}{Real (double precision)}
+\begin{lstlisting}
+1.03d0, 3.51d23, -8.201d0
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Constants - II}
+\begin{block}{Complex (single precision)}
+\begin{lstlisting}
+(1.0,0.0), (-2.5e-5, 3.0e-6)
+\end{lstlisting}
+\end{block}
+\begin{block}{Complex (double precision)}
+\begin{lstlisting}
+(1.0d0,0.0d0), (-2.5d-5, 3.0d-6)
+\end{lstlisting}
+\end{block}
+\begin{block}{Logical}
+\begin{lstlisting}
+.True., .False.
+\end{lstlisting}
+\end{block}
+\begin{block}{Character}
+\begin{lstlisting}
+"Hello World!", "Is pi 3.1415926?"
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Variable Declarations - I}
+\begin{block}{Numerical variables}
+\begin{lstlisting}
+INTEGER :: i, j = 2
+REAL :: a, b = 4.d0
+COMPLEX :: x, y
+\end{lstlisting}
+\end{block}
+\begin{block}{Constant variables}
+\begin{lstlisting}
+INTEGER, PARAMETER :: j = 2
+REAL, PARAMETER :: pi = 3.14159265
+COMPLEX, PARAMETER :: ci = (0.d0,1.d0)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Variable Declarations - II}
+\begin{block}{Logical variables}
+\begin{lstlisting}
+LOGICAL :: l, flag=.true.
+\end{lstlisting}
+\end{block}
+\begin{block}{Character variables}
+The length of a character variable is set with \textbf{LEN}, which is 
+the maximum number of characters (including space) the variable will store.
+By default, \textbf{LEN=1} thus only the first character is saved in memory 
+if \textbf{LEN} is not specified.
+\begin{lstlisting}
+CHARACTER(LEN=10) :: a
+CHARACTER :: ans = 'yes' !stored as ans='y'
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Array Variable}
+Arrays (or matrices) hold a collection of different values at the
+same time. Individual elements are accessed by subscripting the array.
+Fortran arrays are defined with the keyword \textbf{DIMENSION(lower bound: upper bound)} 
+\begin{block}{Arrays}
+\begin{lstlisting}
+INTEGER, DIMENSION(1:106) :: atomic_number
+REAL, DIMENSION(3, 0:5, -10:10) :: values
+CHARACTER(LEN=3), DIMENSION(12) :: months
+\end{lstlisting}
+\end{block}
+In Fortran, arrays can have up to seven dimensions. Fortran arrays are column major.
+\end{frame}
+
+\frame { \frametitle{KIND Parameter for Variables}
+\begin{itemize}
+ \item Fortran 90 introduced \textbf{KIND} parameters to parameterize the
+selection of different possible machine representations for each
+intrinsic data types.
+ \item The \textbf{KIND} parameter is an integer which is processor dependent.
+ \item There are only 2(or 3) kinds of reals: 4-byte, 8-byte (and 16-byte),
+respectively known as single, double (and quadruple) precision.
+ \item The corresponding \textbf{KIND} numbers are 4, 8 and 16 for most compilers.
+\end{itemize}
+}
+
+\begin{frame}[fragile]{Operators}
+\begin{block}{Arithmetic Operators}
+\begin{lstlisting}
++,-,*,/,**
+\end{lstlisting}
+\end{block}
+\begin{block}{Relational Operators}
+\begin{lstlisting}
+==, <. <=, >, >=, /=
+\end{lstlisting}
+\end{block}
+\begin{block}{Logical Operators}
+\begin{lstlisting}
+.AND., .OR., .NOT., .EQV., .NEQV.
+\end{lstlisting}
+\end{block}
+\begin{block}{Character Concatenation Operator}
+\begin{lstlisting}
+//
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Operators Evaluations}
+\begin{itemize}
+ \item All operator evaluations on variables is carried out from left-to-right.
+ \item Arithmetic operators have a highest precedence while logical operators have the lowest precedence
+ \item The order of operator precedence can be changed using parenthesis, ’(’ and ’)’
+ \item A user can define his/her own operators.
+ \item Extra parenthesis could be added to enhance readability and avoid mistakes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Expressions}
+An expression is a combination of one or more operands, zero or
+more operators, and zero or more pairs of parentheses.
+\begin{block}{Arithmetic expressions}
+\begin{lstlisting}
+y + 1.0 - x, sin(x) + y
+\end{lstlisting}
+\end{block}
+\begin{block}{Relational expressions}
+\begin{lstlisting}
+a .and. b, c .neqv. d
+\end{lstlisting}
+\end{block}
+\begin{block}{Character expressions}
+\begin{lstlisting}
+'hello' // 'world', 'ab' // 'xy'
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Statements}
+A statement is a complete instruction. Statements may be classified into two types: 
+executable and non-executable.
+\begin{itemize}
+ \item Executable statements are those which are executed at runtime.
+ \item Non-executale statements provide information to compilers.
+ \item If a statement is too long, it may be continued by the ending the
+line with an \textbf{ampersand (\&)}.
+ \item Max number of characters (including spaces) in a line is 132
+though it’s standard practice to have a line with up to 80
+ \item Multiple statements can be written on the same line provided the
+statements are separated by a semicolon.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Intrinsic Functions - I}
+Fortran provides many commonly used functions, called intrinsic functions.
+\begin{block}{Numerical functions}
+\begin{lstlisting}
+ABS(A), CEILING(A), FLOOR(A), MAX(A,B), 
+MIN(A,B), MOD(I,J), SQRT(A), EXP(A), LOG(A), 
+LOG10(A), INT(A), REAL(A), DBLE(A), 
+CMPLX(A[,B]), AIMAG(A)
+\end{lstlisting}
+\end{block}
+\begin{block}{Math functions}
+\begin{lstlisting}
+SIN(A), COS(A), TAN(A), ASIN(A), 
+ACOS(A), ATAN(A), ATAN2(A,B), SINH(A), 
+COSH(A), TANH(A)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Intrinsic Functions - II}
+\begin{block}{Character functions}
+\begin{lstlisting}
+LEN(S), LEN_TRIM(S), LGE(S1,S2), LGT(S1,S2),
+LLE(S1,S2), LLT(S1,S2), ADJUSTL(S), 
+ADJUSTR(S), REPEAT(S, N), SCAN(S, C), TRIM(S)
+\end{lstlisting}
+\end{block}
+\begin{block}{Array functions}
+\begin{lstlisting}
+SIZE(A[,N]), SUM(A[,N]), PRODUCT(A[,N]), 
+TRSNSPOSE(A), DOT_PRODUCT(A,B), MATMUL(A,B),
+CONJG(X)
+\end{lstlisting}
+\end{block}
+\end{frame}

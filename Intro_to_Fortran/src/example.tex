@@ -1,0 +1,105 @@
+\documentclass{beamer}
+
+\definecolor{tamumaroon}{HTML}{500000}
+\usepackage[utf8]{inputenc}
+\usepackage{beamerthemesplit}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{alltt}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+\usepackage{listings}
+\lstset{language=Fortran}  
+\usetheme{Warsaw}
+%\usecolortheme[RGB={132,186,75}]{structure}
+%\setbeamercolor{tableofcontents}{fg=red}
+\usecolortheme{lily}
+\setbeamerfont{structure}{series=\bfseries} 
+\setbeamercolor{structure}{fg=tamumaroon} 
+\useoutertheme[subsection=false]{smoothbars} % Beamer Outer Theme
+\useinnertheme{rounded} % Beamer Inner Theme
+
+\graphicspath{{images/}}
+
+\lstset{language=[90]Fortran,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red}
+%   commentstyle=\color{green},
+%   morecomment=[l]{!\ }% Comment only with space after !
+}
+
+  
+% \logo{\includegraphics[height=1cm]{TAM-Logo.png}}
+
+% We want to use the infolines outer theme because it uses so less space, but
+% it also tries to print an institution (which we do not have) and the slide
+% numbers (which we might not want to show). Therefore, we here redefine the
+% footline ourselfes - mostly a copy & paste from
+% /usr/share/texmf/tex/latex/beamer/themes/outer/beamerouterthemeinfolines.sty
+\defbeamertemplate*{footline}{infolines theme without institution and slide numbers}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% For some reason this is not displayed by default. This is just a copy & paste
+% from the same file as the footline
+\defbeamertemplate*{headline}{infolines theme with sections/subsections}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]{subsection in head/foot}%
+    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% some settings for captions
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamerfont{caption}{size=\scriptsize}
+
+\AtBeginSection[]
+{\frame{\sectionpage}}
+
+\title[Texas A\&M HPRC Short Course]{Introduction to Fortran 90}
+\author[Jian Tao]{Jian Tao}
+\institute{\textbf{TEES \& TAMIDS \& HPRC \\
+Texas A\&M University} \\
+\vspace{.25cm} \texttt{jtao@tamu.edu}\\
+\vspace{.25cm} \textbf{Texas A\&M HPRC Short Course}}
+\date{April 29, 2021 College Station}
+\titlegraphic{\includegraphics[height=0.4cm]{tees_logo_primary_maroon.png}
+~~~~~~~~~~\includegraphics[height=0.6cm]{TAMIDS-Logo.png}
+~~~~~~~~~~\includegraphics[height=0.4cm]{DORmaroon.jpg}} 
+\begin{document}
+\frame{\titlepage}
+\frame{\tableofcontents}
+\section{Introduction}
+  \include{introduction}
+\section{Basics of Fortran 90 Language}
+  \include{basics}
+\section{Program Structure}
+  \include{structure}
+\section{Control Constructs}
+  \include{construcs}  
+\section{Input and Output in Fortran}
+  \include{io}
+\section{Online Resources for Fortran}
+  \include{resources}  
+\section{Hands-on Exercise}
+  \include{exercise}
+\end{document}

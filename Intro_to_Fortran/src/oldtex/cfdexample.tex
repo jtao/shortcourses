@@ -1,0 +1,38 @@
+\frame { \frametitle{Lid Driven Cavity (LDC) Problem}
+The LDC problem describes a initially stationary fluid contained 
+in a square cavity with a moving lid whose velocity is tangent 
+to the lid surface. It is a standard test case for the numerical solvers of the 
+\textbf{Incompressible Navier-Stokes equations}.
+\begin{align}\label{navier_eqs}
+\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \mathbf{\nabla}) \mathbf{u} &= -\nabla \phi + \nu  \mathbf{\nabla}^2 \mathbf{u} + \mathbf{f}
+\\
+\nabla \cdot \mathbf{u} &= 0
+\end{align}
+where $\mathbf{u}$ is the velocity field, $\nu$ is the kinematic viscosity,
+$\mathbf{f}$ is the body force, $\phi$ is the modified pressure (pressure over
+density).
+}
+
+\frame { \frametitle{Verification \& Validation}
+We solved the LDC problem with a Reynolds number of 100. 
+A comparison of the X component of the velocity field in the midsection along the
+Y axis with those measured by Ghia et al. (1982) is shown below.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.3\textwidth]{ldc_vx_y.png}
+\includegraphics[width=0.3\textwidth]{ldc_validate.png}
+\end{figure}
+}
+
+\frame { \frametitle{Scaling of Chemora (CFD Example)}
+Scaling results of the CFD example on a local cluster.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.6\textwidth]{sc12bench_ml_weak_cane}
+\end{figure}
+}
+

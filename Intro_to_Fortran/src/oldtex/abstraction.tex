@@ -1,0 +1,105 @@
+\frame { \frametitle{Overview of CaKernel}
+\textbf{CaKernel is}
+\begin{itemize}
+  \item a kernel abstraction;
+  \item a parallel programming framework suitable for solving some types of PDEs;
+  \item a collection of Cactus modules/thorns;
+  \item able to automatically generate and execute CUDA, OpenCL, and C code;
+  \item the outcome of our collaborative research efforts with PSNC and other institutes.
+\end{itemize}
+\textbf{CaKernel is not}
+\begin{itemize}
+  \item designed to be a generic solution;
+  \item in its final form yet.
+\end{itemize}
+}
+\frame { \frametitle{Grid Abstractions behind Cactus \& CaKernel}
+\begin{itemize}
+\item \textbf{Grid Hierarchy (GH)} represents the distributed adaptive GH.
+In Cactus, grid operations are usually handled by a driver thorn to 
+create, operate and destroy hierarchical grid structures.
+\item \textbf{Grid Function (GF)} represents a distributed data structure that
+represents the variables in an application. The application developers are 
+responsible for providing proper routines to do initialization, boundary updates, etc.
+\item \textbf{Grid Geometry (GG)} represents the coordinates, bounding boxes,
+and bounding box lists of the computational domain. Operations on the GG, such
+as union, intersection, refine, and coarsen are usually implemented in a driver 
+thorn as well.
+\end{itemize}
+}
+
+\frame { \frametitle{Design of CaKernel}
+CaKernel contains $3$ major parts:
+\begin{itemize}
+\item \textbf{CaKernel Descriptor}: is used to declare the variables that will
+be needed in the computation, and identify a few relevant properties;
+\item \textbf{CaKernel Templates}: are sets of templates which are highly
+optimized for particular types of computational tasks and optimization
+strategies;
+\item \textbf{CaKernel Code Generator}: is used to parse the descriptors and
+automatically generate header files by referring to CaKernel templates. The
+descriptor parser and code generator are built on Piraha
+(http://code.google.com/p/piraha-peg/).
+\end{itemize}
+}
+
+\frame { \frametitle{Code Generation}
+The \textbf{CaKernel code generator} parses the CaKernel descriptor and automatically generate
+CaKernel code from a set of highly optimized templates.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.8\textwidth]{CaKernelCodeGen}
+\end{figure}
+}
+
+\frame { \frametitle{3D Stencil Computation}
+
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.9\textwidth]{algorithm.png}
+\end{figure}
+\begin{flushright}
+ (credit to P. Micikevicius from NVIDIA)
+\end{flushright}
+}
+
+\frame { \frametitle{Code Workflow}
+Cactus variables $\textbf{U}(n)$ are evolved to the next time step $\textbf{U}(n+1)$ during the execution stage.
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.8\textwidth]{CaKernelWorkflow}
+\end{figure}
+}
+
+\frame { \frametitle{Sample Descriptor}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.6\textwidth]{CaKernelDescSample}
+\end{figure}
+}
+
+\frame { \frametitle{Sample Template}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.6\textwidth]{CaKernelTemplateSample}
+\end{figure}
+}
+
+\frame { \frametitle{Sample Application Code}
+\begin{figure}
+\vspace{0.0cm}
+\hspace{0.0cm}
+\centering
+\includegraphics[width=0.6\textwidth]{CaKernelAppSample}
+\end{figure}
+}

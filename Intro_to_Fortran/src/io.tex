@@ -1,0 +1,120 @@
+\begin{frame}[fragile]{Simple I/O}
+Any program needs to be able to read input and write output to
+be useful and portable.
+\begin{block}{Simple output with \textbf{PRINT}}
+\begin{lstlisting}
+print *, <var1> [, <var2> [, ... ]]
+\end{lstlisting}
+\end{block}
+\begin{block}{Simple input with \textbf{READ}}
+\begin{lstlisting}
+read *, <var1> [, <var2> [, ... ]]
+\end{lstlisting}
+\end{block}
+The * indicates that the data is unformatted.
+\end{frame}
+
+
+\begin{frame}[fragile]{Example with Simple I/O}
+\begin{block}{Interactive hello world via I/O}
+\begin{lstlisting}
+PROGRAM hello
+  IMPLICIT NONE
+  character(len=100) :: your_name
+  print *, 'Your Name Please'
+  read *, your_name
+  print *, 'Hello ', your_name
+END PROGRAM hello
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{I/O with Unit Number}
+Files are identified by some form of file handle, in Fortran called
+the unit number. 
+\begin{itemize}
+ \item The default unit number 5 is associated with the standard input,
+ \item Unit number 6 is assigned to standard output.
+\end{itemize}
+\begin{block}{Read and write through unit number}
+\begin{lstlisting}
+read(unit,*)
+write(unit,*)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{File Operations - I}
+Fortran provides functions to open, read, write, inquire, and close files.
+A file may be opened with the statement
+\begin{lstlisting}
+OPEN([UNIT=]un, FILE=fname [, options])
+READ(un, options)varlist
+WRITE(un, options)varlist
+INQUIRE([UNIT=]un, options)
+CLOSE([UNIT=]un [, options])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{File Operations - II}
+If data is read/written from/to standard input/output, then
+\begin{itemize}
+ \item the unit number can also be replaced with *.
+ \item use alternate form for reading and writing i.e. the READ *, 
+  and PRINT start mentioned earlier.
+ \item If data is unformatted i.e. plain ASCII characters, the option to
+  WRITE and READ command is *.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Formatted I/O}
+A formatted data description must adhere to the generic form: \textbf{nCw.d}
+\begin{itemize}
+ \item n is an integer constant that specifies the number of repititions
+(default 1 can be omitted),
+ \item C is a letter indicating the type of the data variable to be written or
+read,
+ \item w is the total number of spaces allocated to this variable, and,
+ \item d is the number of spaces allocated to the fractional part of the
+  variable. Integers are padded with zeros for a total width of w
+  provided $d \leq w$.
+ \item The decimal (.) and d designator are not used for integers,
+characters or logical data types.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{FORMAT Statement - I}
+In the simplest form, the format is enclosed in single quotes and
+parentheses as argument to the keyword.
+\begin{lstlisting}
+print '(I5,5F12.6)', i, a, b, c, z ! complex z
+write(6, '(2E15.8)') arr1, arr2
+read(5, '(2a)') firstname, lastname
+\end{lstlisting}
+If the same format is to be used repeatedly or it is complicated,
+the FORMAT statement can be used. The \textbf{FORMAT} statement must be 
+labeled and the label is used in the input/output statement to reference it
+\begin{lstlisting}
+label FORMAT(formlist)
+PRINT label, varlist
+WRITE(un, label) varlist
+READ(un, label) varlist
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{FORMAT Statement - II}
+The \textbf{FORMAT} statements can occur anywhere in the same program
+unit. Most programmers list all \textbf{FORMAT} statements immediately
+after the type declarations before any executable statements.
+\begin{block}{Format statement examples}
+\begin{lstlisting}
+10 FORMAT(I5,5F12.6)
+20 FORMAT(2E15.8)
+100 FORMAT(2a)
+print 10, i, a, b, c, z ! complex z
+write(6,20) arr1, arr2
+read(5,100) firstname, lastname
+\end{lstlisting}
+\end{block}
+\end{frame}

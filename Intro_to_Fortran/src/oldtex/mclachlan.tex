@@ -1,0 +1,64 @@
+\frame { \frametitle{McLachlan Code}
+The McLachlan code is
+\begin{itemize}
+  \item a public code created in the XiRel project to solve the EFE in vacuum,
+        namely
+        \\$$G_{\mu\nu} \equiv R_{\mu\nu} - \frac{1}{2}g_{\mu\nu} R = 0.$$
+  \item used routinely for binary blackhole simulations.
+  \item automatically generated using Kranc.
+  \item coupled with LoopControl for hybrid MPI + OpenMP parallel programming.
+\end{itemize}
+}
+
+\frame { \frametitle{$\tilde R_{ij}$ in McLachlan (I)}
+In the BSSN (Baumgarte-Shapiro-Shibata-Nakamura) $3+1$ formalism used in
+McLachlan, we need to calculate the
+3D conformal part of Ricci tensor $\tilde R_{ij}$.
+\begin{block}{Mathematical expression:}
+\begin{eqnarray}
+\tilde R_{ij} & = & - \frac{1}{2} \tilde \gamma^{lm}
+        \tilde \gamma_{ij,lm}
+        + \tilde \gamma_{k(i} \partial_{j)} \tilde \Gamma^k
+        + \tilde \Gamma^k \tilde \Gamma_{(ij)k} \nonumber \\
+       &+& \tilde \gamma^{lm} \left( 2 \tilde \Gamma^k_{l(i}
+        \tilde \Gamma_{j)km} + \tilde \Gamma^k_{im} \tilde \Gamma_{klj}
+        \right) \nonumber
+\end{eqnarray}
+\end{block}
+}
+
+\frame { \frametitle{$\tilde R_{ij}$ in McLachlan (II)}
+\begin{block}{Input to Kranc:}
+\begin{equation}
+\begin{array}{lcl}
+    Rt[li,lj] &\rightarrow &  - (1/2) gtu[ul,um] PD[gt[li,lj],ll,lm] \\
+                & + & (1/2) gt[lk,li] PD[Xt[uk],lj] \\
+                & + & (1/2) gt[lk,lj] PD[Xt[uk],li] \\
+                & + & (1/2) Xtn[uk] gt[li,ln] Gt[un,lj,lk] \\
+                & + & (1/2) Xtn[uk] gt[lj,ln] Gt[un,li,lk] \\
+                & + & gtu[ul,um] (+ Gt[uk,ll,li] gt[lj,ln] Gt[un,lk,lm] \\
+                & + & Gt[uk,ll,lj] gt[li,ln] Gt[un,lk,lm] \\
+                & + & Gt[uk,li,lm] gt[lk,ln] Gt[un,ll,lj]) \nonumber
+\end{array}
+\end{equation}
+\end{block}
+}
+
+\frame { \frametitle{$\tilde R_{ij}$ in McLachlan (III)}
+Generated C code to calculate $\tilde R_{11}$ (5 more not shown)
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.95\textwidth]{Rt11}
+    \end{center}
+    \vspace{-20pt}
+  \end{figure}
+}
+
+\frame { \frametitle{McLachlan in Action}
+McLachlan is also
+\begin{itemize}
+  \item the numerical kernel of the new Cactus benchmark submitted to the SPEC CPU Benchmark Search Program.
+  \item adopted by the LSU team to compete in the Second IEEE International
+        Scalable Computing Challenge (SCALE 2009) at CCGrid 2009.
+\end{itemize}
+}

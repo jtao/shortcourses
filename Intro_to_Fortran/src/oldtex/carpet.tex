@@ -1,0 +1,46 @@
+\frame { \frametitle{Adaptive Mesh Refinement Method}
+  The B\&O AMR algorithm proposed by Berger and Oliger in 1984 is
+  built upon a nested grid hierarchy of rectangular grids with increasing resolution.
+  \begin{figure}
+    \vspace{0.0cm}
+    \hspace{0.0cm}
+    \centering
+    \includegraphics[width=0.8\textwidth]{gridhierarchy}
+  \end{figure}
+}
+
+
+\frame { \frametitle{Domain Decomposition in AMR}
+ \begin{centering}\includegraphics[width=11cm]{domain_decomposition_mr}\\\end{centering}
+}
+
+\frame { \frametitle{Carpet Adaptive Mesh Refinement Library}
+  \begin{wrapfigure}{R}{0.2\textwidth}
+    \begin{center}
+      \includegraphics[width=0.2\textwidth]{carpet_logo}
+    \end{center}
+    \vspace{-20pt}
+  \end{wrapfigure}
+  $ $
+
+Carpet
+  \begin{itemize}
+    \item is a driver layer of Cactus providing adaptive mesh refinement,
+          multi-patch capability, as well as parallelization and efficient I/O.
+    \item is written primarily in C++.
+    \item was created in 2001 by Erik Schnetter at the Theoretische Astrophysik T\"{u}bingen.
+    \item is currently maintained at the Center for Computation \& Technology at LSU.
+  \end{itemize}
+}
+
+\frame { \frametitle{Scalability of Carpet}
+Carpet has been actively developed, and it is now
+used by several numerical relativity groups around the world for their production
+simulations of binary compact objects.
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.48\textwidth]{carpet_scale}
+      \includegraphics[width=0.48\textwidth]{carpet_scale_bgp}
+    \end{center}
+  \end{figure}
+}

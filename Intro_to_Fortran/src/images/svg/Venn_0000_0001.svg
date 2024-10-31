@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg4862" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="200" width="200" version="1.0" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata4867">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <g id="g3294" stroke="#000">
+   <g id="g5688" transform="matrix(2.5586 0 0 2.6004 -879.76 -1009.5)" stroke-width=".99480" fill="#f00">
+    <path id="path14527" d="m427.59 222.81a225.99 229.18 0 1 1 -451.99 0 225.99 229.18 0 1 1 451.99 0z" transform="matrix(-.16825 0 0 -.16350 416.77 463.08)" stroke="#000" stroke-width="5.9978" fill="#fff"/>
+   </g>
+   <path id="path5" d="m48.953 129.32c-13.174-7.67-22.789-21.12-24.965-37.392-3.741-27.967 15.916-53.668 43.904-57.406 11.699-1.562 23.005 0.962 32.478 6.471" stroke-width="2.566" fill="#fff"/>
+   <path id="path7" d="m100.37 40.995c5.58-3.201 11.87-5.393 18.65-6.298 27.99-3.739 53.71 15.904 57.45 43.869 2.8 20.974-7.55 40.674-24.71 50.794-0.18 0.1-0.36 0.21-0.54 0.31" stroke-width="2.566" fill="#fff"/>
+   <path id="path9" d="m151.22 129.67c-0.06 25.16-18.71 47.04-44.36 50.47-27.989 3.73-53.708-15.91-57.449-43.88-0.313-2.33-0.462-4.65-0.458-6.94" stroke-width="2.566" fill="#fff"/>
+   <path id="path11" d="m100.63 129.18c-5.721 3.38-12.198 5.68-19.195 6.62-11.704 1.56-23.012-0.96-32.482-6.48 0.04-18.51 10.15-35.244 25.705-44.161" stroke-width="2.566" fill="#fff"/>
+   <path id="path13" d="m125.8 85.336c13.17 7.67 22.78 21.124 24.96 37.394 0.31 2.33 0.46 4.65 0.46 6.94-5.59 3.2-11.88 5.4-18.66 6.3-11.7 1.57-23-0.96-32.47-6.47" stroke-width="2.566" fill="#fff"/>
+   <path id="path15" d="m74.661 85.161c0.037-18.515 10.146-35.25 25.709-44.166v-0.002c13.17 7.67 22.79 21.126 24.97 37.399 0.31 2.334 0.46 4.651 0.46 6.942" stroke-width="2.566" fill="#fff"/>
+   <path id="path17" d="m74.658 85.159c5.589-3.201 11.877-5.395 18.654-6.301 11.708-1.562 23.018 0.962 32.488 6.478v-0.002c-0.04 18.296-9.92 34.856-25.17 43.846l-0.54 0.32c-13.18-7.67-22.798-21.13-24.975-37.397-0.311-2.334-0.46-4.652-0.454-6.942l-0.003-0.002z" stroke-width="2.566" fill="#f00"/>
+  </g>
+ </g>
+</svg>

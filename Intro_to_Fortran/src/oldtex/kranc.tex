@@ -1,0 +1,84 @@
+\frame { \frametitle{Kranc Code Generation Package}
+Kranc is
+\begin{itemize}
+  \item a suite of Mathematica packages with a computer algebra
+        toolbox for numerical relativists.
+  \item a prototyping system for physicists or mathematicians
+        handling very complicated systems of partial differential equations.
+  Kranc can generate entire Cactus based codes starting from a high
+  level set of partial differential equations.
+\end{itemize}
+}
+
+\frame { \frametitle{Integration with Cactus}
+Kranc is closely coupled with Cactus by
+\begin{itemize}
+\item Defining the grid functions which the simulation will use.
+\item Performing a user-specified calculation at each point of the grid.
+\item Computing the right hand sides of evolution equations so that the
+time integrator can compute the evolved variables at the next time step.
+\end{itemize}
+}
+
+\frame { \frametitle{Potential Applications}
+Various kinds of initial value boundary problems:
+\begin{block}{}
+\begin{equation}
+\begin{array}{lcl}
+  \partial_t u^a &=& f(u^a), \\
+  u^a |_{t=0} &=& g(u^a), \\
+  u^a |_{\partial \Sigma} &=& h(u^a) \nonumber
+\end{array}
+\end{equation}
+\end{block}
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{boundary}
+    \end{center}
+    \vspace{-20pt}
+  \end{figure}
+}
+
+\frame{
+\frametitle{Kranc in Action: Wave Equation (I)}
+\begin{block}{Mathematical expression:}
+\begin{equation}
+\partial_t^2 u = \delta^{ab}\partial_b\partial_a u  \nonumber
+\end{equation}
+\end{block}
+\begin{block}{Rewritten in 1st order in time:}
+\begin{equation}
+\begin{array}{lcl}
+\partial_t u & = & \rho, \\
+\partial_t \rho & = & \delta^{ab}\partial_b\partial_a u \nonumber
+\end{array}
+\end{equation}
+\end{block}
+\begin{block}{Input to Kranc:}
+\begin{equation}
+\begin{array}{lcl}
+    dot[u] &\rightarrow & rho, \\
+    dot[rho] &\rightarrow & KD[ua,ub] PD[u[la],lb] \nonumber
+\end{array}
+\end{equation}
+\end{block}
+}
+
+\begin{frame}[fragile]
+\frametitle{Kranc in Action: Wave Equation (II)}
+\begin{block}{Generated C code to calculate the RHS:}
+\begin{verbatim}
+/* Precompute derivatives (new style) */
+    PDstandardNth11u = PDstandardNth11(u, i, j, k);
+    PDstandardNth22u = PDstandardNth22(u, i, j, k);
+    PDstandardNth33u = PDstandardNth33(u, i, j, k);
+/* Calculate temporaries and grid functions */
+    urhsL = rhoL;
+    rhorhsL = PDstandardNth11u + PDstandardNth22u
+            + PDstandardNth33u;
+/* Copy local copies back to grid functions */
+    rhorhs[index] = rhorhsL;
+    urhs[index] = urhsL;
+\end{verbatim}
+\end{block}
+\end{frame}
